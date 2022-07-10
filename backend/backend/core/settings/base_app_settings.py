@@ -7,4 +7,4 @@ class BaseAppSettings(BaseSettings):
     app_env: AppEnvTypes = AppEnvTypes.test
 
     class Config:
-        env_file = ".env"
+        pass

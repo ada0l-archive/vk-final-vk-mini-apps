@@ -2,7 +2,7 @@ import logging
 import sys
 
 from loguru import logger
-from pydantic import BaseSettings
+from pydantic import BaseSettings, validator
 
 from backend.core.logging import InterceptHandler
 from backend.core.settings.app_env_types import AppEnvTypes
@@ -12,7 +12,7 @@ class BaseAppSettings(BaseSettings):
     app_env: AppEnvTypes = AppEnvTypes.test
 
     class Config:
-        env_file = ".env"
+        pass
 
 
 class AppSettings(BaseAppSettings):
@@ -93,22 +93,29 @@ class DevAppSettings(AppSettings):
     logging_level: int = logging.DEBUG
 
     class Config(AppSettings.Config):
-        env_file = ".env.dev"
+        env_prefix = "dev_"
 
 
 class ProdAppSettings(AppSettings):
     class Config(AppSettings.Config):
-        env_file = ".env.prod"
+        env_prefix = "prod_"
+
+
+class HerokuAppSettings(AppSettings):
+    @validator("database_url")
+    def change_database_connection(cls, v: str):  # noqa
+        v = f'postgresql+psycopg2://{v.split("://")[1]}'
+        return v
+
+    class Config(AppSettings.Config):
+        env_prefix = ""
 
 
 class TestAppSettings(AppSettings):
     debug: bool = True
-
     title: str = "Test Application"
-
     secret_key: str = "test"
-
     logging_level: int = logging.DEBUG
 
     class Config(AppSettings.Config):
-        env_file = ".env.test"
+        env_prefix = "test_"

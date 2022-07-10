@@ -5,3 +5,4 @@ class AppEnvTypes(Enum):
     prod: str = "prod"
     dev: str = "dev"
     test: str = "test"
+    heroku: str = "heroku"

@@ -23,6 +23,7 @@ services:
     command: bash -c "make run"
     volumes:
       - .:/code
+    env_file: ./.env
     ports:
       - "8000:8000"
     depends_on:
