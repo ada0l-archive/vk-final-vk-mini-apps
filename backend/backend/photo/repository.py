@@ -36,6 +36,8 @@ class PhotoRepository(
 
     async def get_by_user_to(self, user_to_id: str) -> list[models.Photo]:
         q = await self.session.execute(
-            self.get_query().filter(self._model.user_to_id == user_to_id)
+            self.get_query()
+            .filter(self._model.user_to_id == user_to_id)
+            .order_by(self._model.time_created.desc())
         )
         return q.scalars().all()
