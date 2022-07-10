@@ -1,0 +1,21 @@
+backend
+=======
+
+# Конфигурация
+В данной директории необходимо создать файл .env
+
+```env
+APP_ENV="dev"
+DEV_DATABASE_URL="postgresql+asyncpg://postgres:postgres@db_dev:5432/postgres"
+DEV_SECRET_KEY="123"
+DEV_MCS_STORAGE_ACCESS_KEY_ID="hF8JdDd4VuSmkqAq3TCyH2"
+DEV_MCS_STORAGE_SECRET_KEY_ID="e6AHLmyrebuChgmJLgtpgEE1RKrAxhLC4BNpU9MB6zn5"
+```
+
+# Запуск
+```bash
+docker-compose build
+docker-compose up
+```
+
+``http://localhost:8000/docs``
