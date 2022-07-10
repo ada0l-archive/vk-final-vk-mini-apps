@@ -46,7 +46,6 @@ async def upload_photos(
     file_name = None
     if file:
         try:
-            file = file[len("data:image/png;base64,") :]
             image_as_bytes = str.encode(file)
             img_recovered = base64.b64decode(image_as_bytes)
             file_name = uuid.uuid4()

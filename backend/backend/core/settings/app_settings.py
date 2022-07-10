@@ -9,7 +9,7 @@ from backend.core.settings.app_env_types import AppEnvTypes
 
 
 class BaseAppSettings(BaseSettings):
-    app_env: AppEnvTypes = AppEnvTypes.test
+    app_env: AppEnvTypes = AppEnvTypes.heroku
 
     class Config:
         pass
@@ -104,7 +104,7 @@ class ProdAppSettings(AppSettings):
 class HerokuAppSettings(AppSettings):
     @validator("database_url")
     def change_database_connection(cls, v: str):  # noqa
-        v = f'postgresql+psycopg2://{v.split("://")[1]}'
+        v = f'postgresql+asyncpg://{v.split("://")[1]}'
         return v
 
     class Config(AppSettings.Config):
