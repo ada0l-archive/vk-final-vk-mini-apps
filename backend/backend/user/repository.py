@@ -33,7 +33,10 @@ class UserRepository(
         return user
 
     async def update_permissions(
-        self, obj: models.User, read_permissions: int, write_permissions: int
+        self,
+        obj: models.User,
+        read_permissions: list[int],
+        write_permissions: list[int],
     ):
         stmt = (
             update(models.User)

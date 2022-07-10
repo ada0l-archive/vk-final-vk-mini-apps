@@ -5,14 +5,14 @@ from backend.core.settings import settings
 
 
 class UserInUpdatePermissions(BaseModel):
-    read_permission: int
-    write_permission: int
+    read_permission: list[int]
+    write_permission: list[int]
 
 
 class UserBasePydantic(BaseModel):
     id: str
-    read_permission: int = Field(default=0)
-    write_permission: int = Field(default=0)
+    read_permission: list[int] = Field(default=[0])
+    write_permission: list[int] = Field(default=[0])
 
 
 class UserPydantic(UserBasePydantic):
